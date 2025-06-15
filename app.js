@@ -11,6 +11,12 @@ app.get("/", (req, res) => {
 
 app.get("/movies", async (req, res) => {
   try {
+    if (req.query.title) {
+      const movies = await records.searchMovies(req.query.title);
+      res.status(200).json(movies);
+      return;
+    }
+
     const movies = await records.getMoviesList();
     res.status(200).json(movies);
   } catch (err) {

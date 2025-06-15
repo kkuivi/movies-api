@@ -14,6 +14,11 @@ async function getMovieById(id) {
     return movies.find(movie => movie.id === id);
 }
 
+async function searchMovies(searchTerm) {
+    const movies = await getMoviesList();
+    return movies.filter(movie => movie.title.toLowerCase().includes(searchTerm.toLowerCase()));
+}
+
 async function createMovie(movie) {
     const movies = await getMoviesList();
     const newMovie = { id: uid.rnd(), ...movie };
@@ -47,4 +52,4 @@ async function deleteMovie(id) {
     return true;
 }
 
-module.exports = { getMoviesList, getMovieById, createMovie, updateMovie, deleteMovie };
+module.exports = { getMoviesList, getMovieById, createMovie, updateMovie, deleteMovie, searchMovies };
